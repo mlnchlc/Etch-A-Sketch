@@ -1,0 +1,38 @@
+html {
+  padding: 0% 10% 0% 10%;
+}
+body {
+  background-color: white;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.grid {
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+}
+.gridRow {
+  flex: auto;
+  display: flex;
+  width: 900px;
+}
+
+.cell {
+  flex: auto;
+}
+
+.border-left {
+  border-left: 1px solid black;
+}
+
+.border-top {
+  border-top: 1px solid black;
+}
+
+.border-bottom-right {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
