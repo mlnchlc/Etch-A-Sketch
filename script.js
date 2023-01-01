@@ -8,6 +8,8 @@ class Grid {
     this.node = node;
   }
 
+  setBrushMode(mode) { this.brushMode = mode; }
+
   getRandomColor() {
     let red = Math.floor(Math.random() * 256);
     let blue = Math.floor(Math.random() * 256);
@@ -16,20 +18,23 @@ class Grid {
   }
 
   shade(color) {
-   //TODO
-    return color;
+    if (!color) //takes care of uncolored cells which have undefined bgcolor
+      color = "rgb(255, 255, 255)";
+    console.log(color);
+    let rgb = color.substring(color.indexOf('(') + 1, color.length - 1).split(', ').map(c => Number(c) * 0.9);
+    let col = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    return col;
   }
-  
+
   colorCell(target) {
     if (this.brushMode === "rainbow")
       this.brushColor = this.getRandomColor();
     else if (this.brushMode === "black")
-      this.brushColor = "black";
+      this.brushColor = "rgb(0, 0, 0)";
     else if (this.brushMode === "shade")
-      this.brushColor = shade(this.brushColor);
-
+      this.brushColor = this.shade(target.style.backgroundColor);
+    console.log(this.brushColor);
     target.style.backgroundColor = this.brushColor;
-
   }
 
   draw() {
@@ -47,7 +52,7 @@ class Grid {
           cellDiv.classList.add("border-top");
         if (j === 0)
           cellDiv.classList.add("border-left");
-        cellDiv.addEventListener("mouseover", (e) => this.colorCell(e.target)
+        cellDiv.addEventListener("mouseover", e => this.colorCell(e.target));
         rowDiv.appendChild(cellDiv);
       }
       this.node.appendChild(rowDiv);
@@ -55,11 +60,17 @@ class Grid {
   }
 }
 
-let rangeInput = document.querySelector(".rangeInput");
-let rangeValue = document.querySelector(".rangeValue");
+//create Grid
 let gridNode = document.querySelector(".grid");
 let grid = new Grid(gridNode);
-let rainbowInput = document.querySelector(".rainbow-brush");
+grid.draw();
+console.log(grid.brushColor);
+
+//Setup Control Panel
+let rangeInput = document.querySelector(".range-input");
+let rangeValue = document.querySelector(".range-value");
+let brushModes = document.querySelectorAll('input[name="brush-mode"]')
+let resetButton = document.querySelector("#reset");
 rangeValue.innerHTML = +grid.size;
 rangeInput.value = grid.size;
 
@@ -69,4 +80,6 @@ rangeInput.addEventListener("input", (e) => {
   grid.draw();
 });
 
-grid.draw();
+brushModes[0].checked = "checked";
+brushModes.forEach(brushMode => brushMode.addEventListener("change", e => grid.setBrushMode(e.target.value)));
+resetButton.addEventListener("click", e => grid.draw());

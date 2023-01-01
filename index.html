@@ -9,19 +9,27 @@
 </head>
 
 <body>
+  <header>
+    <h1>Etch-A-Sketch</h1>
+  </header>
   <div class="wrapper">
     <div class="control-panel">
+      <h2>Control Panel</h2>
+      <h3>Size</h3>
       <div class="slider">
-        <input class="rangeInput" type="range" min="10" max="64" value="10">
-        <div class="rangeValue"></div>
+        <input class="range-input" type="range" min="12" max="64" value="10">
+        <span class="range-value"></span>
       </div>
-      <input type="radio" id="black-brush" name="brush-color">
-      <label for="black-brush">black</label><br>
-      <input type="radio" id="rainbow-brush" name="brush-color">
-      <label for="rainbow-brush">rainbow</label><br>
-      <input type="radio" id="shade-brush" name="brush-color">
-      <label for="shade-brush">shade</label><br>
-      <input type="checkbox" class="rainbow-brush">rainbow</button>
+      <h3>Mode</h3>
+      <fieldset id="mode">
+        <input type="radio" id="black-brush" name="brush-mode" checked value="black">
+        <label for="black-brush">Black</label><br>
+        <input type="radio" id="rainbow-brush" name="brush-mode" value="rainbow">
+        <label for="rainbow-brush">Rainbow</label><br>
+        <input type="radio" id="shade-brush" name="brush-mode" value="shade">
+        <label for="shade-brush">Shade</label><br>
+      </fieldset>
+      <h3><button id="reset">Reset</button></h3>
     </div>
     <div class="grid">
     </div>
